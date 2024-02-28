@@ -39,6 +39,8 @@ fileInput.addEventListener('change', () => {
 });
 
 function processData() {
+  const previewType = Array.from(document.getElementsByName('previewType')).map((e: HTMLInputElement) => e.checked);
+
   previewDiv.innerHTML = '';
   const map = new Map<string, string>();
   for(let i = 1; i <= fieldCount; i++) {
@@ -69,9 +71,14 @@ function processData() {
     previewArea.appendChild(infoArea);
 
     const imageContainer = createElement('div', ['imageContainer'], 'imageContainer' + index);
-    const imageElement = createElement('img', ['preview'], 'preview' + index) as HTMLImageElement;
-    imageElement.src = line[linkPosition];
-    imageContainer.appendChild(imageElement);
+    if(previewType[0]) {
+      const imageElement = createElement('img', ['preview'], 'preview' + index) as HTMLImageElement;
+      imageElement.src = line[linkPosition];
+      imageContainer.appendChild(imageElement);
+    } else {
+      imageContainer.innerHTML = '<video controls class="preview"><source src=' + line[linkPosition] + '></video>'
+    }
+    
     previewArea.appendChild(imageContainer);
     previewArea.addEventListener('click', () => window.open(line[linkPosition]))
 

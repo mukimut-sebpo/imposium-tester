@@ -32,6 +32,7 @@ fileInput.addEventListener('change', function () {
     });
 });
 function processData() {
+    var previewType = Array.from(document.getElementsByName('previewType')).map(function (e) { return e.checked; });
     previewDiv.innerHTML = '';
     var map = new Map();
     for (var i = 1; i <= fieldCount; i++) {
@@ -57,16 +58,17 @@ function processData() {
         infoArea.innerText = versionName + ' | ' + line[tagPosition];
         previewArea.appendChild(infoArea);
         var imageContainer = createElement('div', ['imageContainer'], 'imageContainer' + index);
-        var imageElement = createElement('img', ['preview'], 'preview' + index);
-        imageElement.src = line[linkPosition];
-        imageContainer.appendChild(imageElement);
+        if (previewType[0]) {
+            var imageElement = createElement('img', ['preview'], 'preview' + index);
+            imageElement.src = line[linkPosition];
+            imageContainer.appendChild(imageElement);
+        }
+        else {
+            imageContainer.innerHTML = '<video controls class="preview"><source src=' + line[linkPosition] + '></video>';
+        }
         previewArea.appendChild(imageContainer);
         previewArea.addEventListener('click', function () { return window.open(line[linkPosition]); });
         previewDiv.appendChild(previewArea);
-        // trace(versionName);
-        // trace(line[tagPosition]);
-        // trace(line[linkPosition]);
-        // trace('----------------------')
     });
 }
 function createElement(tag, classList, id) {

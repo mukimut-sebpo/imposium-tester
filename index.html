@@ -1,6 +1,9 @@
 <html>
 <head><title>Read SVG</title></head>
 <style>
+    body {
+        background-color: black; color: white;
+    }
     .previewArea {
         width: 32%; height: 540px;
         position: relative;
@@ -10,7 +13,7 @@
 
     .info {
         width: 100%; text-align: center;
-        background-color: lightcyan;
+        background-color: darkgreen;
         text-align: center;
     }
 
@@ -29,11 +32,22 @@
     <div id="inputs">
         <input type="text" id="comp1" placeholder="composition tag"><input type="text" id="linkField1" placeholder="link field"><br>
     </div>
-    
+    <input type="radio" id="image" name="previewType" checked><label for="radio">Image</label>
+    <input type="radio" id="video" name="previewType"><label for="video">Video</label>
     <button onclick="addField()">add</button>
     <button onclick="processData()">Reload</button>
     <input id="input" type="file" />
-    <div id="previews"></div>
+    <div id="previews">
+        <!-- <div class="previewArea">
+            <div class="info">Food-Dad01 | 1080x1080</div>
+            <div class="imageContainer">
+                <video controls class="preview">
+                    <source src="https://d1u7u6rhc3dqyi.cloudfront.net/dded0627-19f9-48ab-ed47-660bcd0a0471/dca820d2-e6b0-4d77-854b-12eed7adac8b/1a391f46-7160-4376-a858-0eef0f079a0f.mp4" >
+                </video>
+                <img class="preview" src="https://d1u7u6rhc3dqyi.cloudfront.net/191d68f8-4d0b-4a32-e4cc-4cc79d6f781b/ef081037-0c9c-4dd6-bf55-a6e1a1ba8413/ef0810370c9c4dd6bf55a6e1a1ba8413_1080x1080.jpg">
+            </div>
+        </div> -->
+    </div>
     
     
 </body>
