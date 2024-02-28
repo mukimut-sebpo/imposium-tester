@@ -44,11 +44,8 @@ function processData() {
   for(let i = 1; i <= fieldCount; i++) {
     const tag = (document.getElementById('comp' + i) as HTMLInputElement).value;
     const field = (document.getElementById('linkField' + i) as HTMLInputElement).value;
-
     map.set(tag, field);
   }
-
-  
 
   data.forEach((line, index) => {
     let versionName: string;
@@ -79,16 +76,7 @@ function processData() {
     previewArea.addEventListener('click', () => window.open(line[linkPosition]))
 
     previewDiv.appendChild(previewArea);
-
-
-
-
-
-    // trace(versionName);
-    // trace(line[tagPosition]);
-    // trace(line[linkPosition]);
-    // trace('----------------------')
-  })
+  });
 }
 
 function createElement(tag: keyof HTMLElementTagNameMap, classList: string[], id: string): HTMLElement {
