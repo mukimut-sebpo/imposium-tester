@@ -1,0 +1,45 @@
+<html>
+<head><title>Read SVG</title></head>
+<style>
+    .previewArea {
+        width: 32%; height: 540px;
+        position: relative;
+        margin: .5%; cursor: pointer;
+        display: inline-block;
+    }
+
+    .info {
+        width: 100%; text-align: center;
+        background-color: lightcyan;
+        text-align: center;
+    }
+
+    .imageContainer {
+        position: relative; bottom: 0;
+        width: 100%; height: 96.5%;
+        background-color: gray;
+        display: flex; align-items: center; justify-content: center;
+    }
+
+    .preview {
+        max-width: 99%; max-height: 99%;
+    }
+</style>
+<body>
+    <div id="inputs">
+        <input type="text" id="comp1" placeholder="composition tag"><input type="text" id="linkField1" placeholder="link field"><br>
+    </div>
+    
+    <button onclick="addField()">add</button>
+    <button onclick="processData()">Reload</button>
+    <br>
+    <input id="input" type="file" />
+    <div id="previews"></div>
+    
+    
+</body>
+<script src="main.js"></script>
+
+    
+
+</html>

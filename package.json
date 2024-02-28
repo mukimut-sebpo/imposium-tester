@@ -1,0 +1,22 @@
+{
+  "name": "imposium-tester",
+  "version": "1.0.0",
+  "description": "Test imposium using their preview CSV",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mukimut-sebpo/imposium-tester.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mukimut-sebpo/imposium-tester/issues"
+  },
+  "homepage": "https://github.com/mukimut-sebpo/imposium-tester#readme",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
