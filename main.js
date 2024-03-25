@@ -28,9 +28,35 @@ fileInput.addEventListener('change', function () {
                 data.push(lineList);
             }
         }
-        processData();
+        var tags = new Set();
+        for (var i = 1; i < data.length; i++) {
+            tags.add(data[i][tagPosition]);
+        }
+        // const select: HTMLSelectElement = createElement('select', [], 'comp1') as HTMLSelectElement;
+        // headers.forEach(header => {
+        //   const option: HTMLOptionElement = document.createElement('option');
+        //   option.innerHTML = header;
+        //   option.value = header;
+        //   select.appendChild(option);
+        // });
+        var previewSelect = createSelect('linkField1', [], headers);
+        var compSelect = createSelect('comp1', [], Array.from(tags));
+        var inputsDiv = document.getElementById('inputs');
+        inputsDiv.appendChild(compSelect);
+        inputsDiv.appendChild(previewSelect);
+        // processData();
     });
 });
+function createSelect(id, classes, dataList) {
+    var select = createElement('select', classes, id);
+    dataList.forEach(function (header) {
+        var option = document.createElement('option');
+        option.innerHTML = header;
+        option.value = header;
+        select.appendChild(option);
+    });
+    return select;
+}
 function processData() {
     var previewType = Array.from(document.getElementsByName('previewType')).map(function (e) { return e.checked; });
     previewDiv.innerHTML = '';

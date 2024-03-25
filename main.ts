@@ -28,15 +28,41 @@ fileInput.addEventListener('change', () => {
         headers = lines[0].split(',');
         tagPosition = headers.indexOf('composition_tag');
 
+        
+
         for(let i = 1; i < lines.length; i++) {
             const lineList = lines[i].split(',');
             if(lineList.length > 1) {
                 data.push(lineList);
             }
         }
-        processData();
+
+        const tags = new Set<string>();
+        for(let i = 1; i < data.length; i++) {
+          tags.add(data[i][tagPosition])
+        }
+
+        const previewSelect = createSelect('linkField1', [], headers);
+        const compSelect = createSelect('comp1', [], Array.from(tags));
+        const inputsDiv = document.getElementById('inputs');
+        inputsDiv.appendChild(compSelect);
+        inputsDiv.appendChild(previewSelect);
+
+
+        // processData();
     });
 });
+
+function createSelect(id: string, classes: string[], dataList: string[]): HTMLSelectElement {
+  const select: HTMLSelectElement = createElement('select', classes, id) as HTMLSelectElement;
+  dataList.forEach(header => {
+    const option: HTMLOptionElement = document.createElement('option');
+    option.innerHTML = header;
+    option.value = header;
+    select.appendChild(option);
+  });
+  return select
+}
 
 function processData() {
   const previewType = Array.from(document.getElementsByName('previewType')).map((e: HTMLInputElement) => e.checked);
