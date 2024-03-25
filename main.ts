@@ -1,4 +1,4 @@
-let headers: string[], tagPosition: number, compTagList: string[], data: string[][] = [], fieldCount = 1;
+let headers: string[], tagPosition: number, compTagList: string[], data: string[][] = [], fieldCount = 0;
 const previewDiv = document.getElementById('previews');
 
 function addField() {
@@ -34,21 +34,12 @@ fileInput.addEventListener('change', () => {
         }
         compTagList = Array.from(tags);
 
-        const previewSelect = createSelect('linkField1', [], headers);
-        const compSelect = createSelect('comp1', [], compTagList);
-        const inputsDiv = document.getElementById('inputs');
-        inputsDiv.appendChild(compSelect);
-        inputsDiv.appendChild(previewSelect);
-        inputsDiv.appendChild(document.createElement('br'));
-
-
-        // processData();
+        addField();
     });
 });
 
 function createSelect(id: string, classes: string[], dataList: string[]): HTMLSelectElement {
   const select: HTMLSelectElement = createElement('select', classes, id) as HTMLSelectElement;
-  select.addEventListener('change', (e:Event) => {trace(e.target)});
   dataList.forEach(header => {
     const option: HTMLOptionElement = document.createElement('option');
     option.innerHTML = header;

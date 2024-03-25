@@ -1,4 +1,4 @@
-var headers, tagPosition, compTagList, data = [], fieldCount = 1;
+var headers, tagPosition, compTagList, data = [], fieldCount = 0;
 var previewDiv = document.getElementById('previews');
 function addField() {
     fieldCount++;
@@ -27,18 +27,19 @@ fileInput.addEventListener('change', function () {
             tags.add(data[i][tagPosition]);
         }
         compTagList = Array.from(tags);
-        var previewSelect = createSelect('linkField1', [], headers);
-        var compSelect = createSelect('comp1', [], compTagList);
-        var inputsDiv = document.getElementById('inputs');
-        inputsDiv.appendChild(compSelect);
-        inputsDiv.appendChild(previewSelect);
-        inputsDiv.appendChild(document.createElement('br'));
+        addField();
+        // const previewSelect = createSelect('linkField1', [], headers);
+        // const compSelect = createSelect('comp1', [], compTagList);
+        // const inputsDiv = document.getElementById('inputs');
+        // inputsDiv.appendChild(compSelect);
+        // inputsDiv.appendChild(previewSelect);
+        // inputsDiv.appendChild(document.createElement('br'));
         // processData();
     });
 });
 function createSelect(id, classes, dataList) {
     var select = createElement('select', classes, id);
-    select.addEventListener('change', function (e) { trace(e.target); });
+    // select.addEventListener('change', (e:Event) => {trace(e.target)});
     dataList.forEach(function (header) {
         var option = document.createElement('option');
         option.innerHTML = header;
