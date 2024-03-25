@@ -1,23 +1,14 @@
-let headers: string[], tagPosition: number, data: string[][] = [], fieldCount = 1;
+let headers: string[], tagPosition: number, compTagList: string[], data: string[][] = [], fieldCount = 1;
 const previewDiv = document.getElementById('previews');
 
 function addField() {
     fieldCount++;
-    const compInput = createTextInput('comp' + fieldCount, 'composition tag');
-    const fieldInput = createTextInput('linkField' + fieldCount, 'link field');
-
+    const compSelect = createSelect('comp' + fieldCount, [], compTagList);
+    const fieldSelect = createSelect('linkField' + fieldCount, [], headers);
     const inputsDiv = document.getElementById('inputs');
-    inputsDiv.appendChild(compInput);
-    inputsDiv.appendChild(fieldInput);
+    inputsDiv.appendChild(compSelect);
+    inputsDiv.appendChild(fieldSelect);
     inputsDiv.appendChild(document.createElement('br'));
-
-    function createTextInput(id: string, placeHolder: string):  HTMLInputElement {
-        const input = createElement('input', [], id) as HTMLInputElement;
-        input.type = 'text'
-        input.placeholder = placeHolder;
-
-        return input;
-    }
 }
 
 const fileInput: HTMLInputElement = document.getElementById('input') as HTMLInputElement;
@@ -41,12 +32,14 @@ fileInput.addEventListener('change', () => {
         for(let i = 1; i < data.length; i++) {
           tags.add(data[i][tagPosition])
         }
+        compTagList = Array.from(tags);
 
         const previewSelect = createSelect('linkField1', [], headers);
-        const compSelect = createSelect('comp1', [], Array.from(tags));
+        const compSelect = createSelect('comp1', [], compTagList);
         const inputsDiv = document.getElementById('inputs');
         inputsDiv.appendChild(compSelect);
         inputsDiv.appendChild(previewSelect);
+        inputsDiv.appendChild(document.createElement('br'));
 
 
         // processData();
@@ -55,6 +48,7 @@ fileInput.addEventListener('change', () => {
 
 function createSelect(id: string, classes: string[], dataList: string[]): HTMLSelectElement {
   const select: HTMLSelectElement = createElement('select', classes, id) as HTMLSelectElement;
+  select.addEventListener('change', (e:Event) => {trace(e.target)});
   dataList.forEach(header => {
     const option: HTMLOptionElement = document.createElement('option');
     option.innerHTML = header;

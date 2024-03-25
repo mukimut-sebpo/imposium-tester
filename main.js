@@ -1,19 +1,13 @@
-var headers, tagPosition, data = [], fieldCount = 1;
+var headers, tagPosition, compTagList, data = [], fieldCount = 1;
 var previewDiv = document.getElementById('previews');
 function addField() {
     fieldCount++;
-    var compInput = createTextInput('comp' + fieldCount, 'composition tag');
-    var fieldInput = createTextInput('linkField' + fieldCount, 'link field');
+    var compSelect = createSelect('comp' + fieldCount, [], compTagList);
+    var fieldSelect = createSelect('linkField' + fieldCount, [], headers);
     var inputsDiv = document.getElementById('inputs');
-    inputsDiv.appendChild(compInput);
-    inputsDiv.appendChild(fieldInput);
+    inputsDiv.appendChild(compSelect);
+    inputsDiv.appendChild(fieldSelect);
     inputsDiv.appendChild(document.createElement('br'));
-    function createTextInput(id, placeHolder) {
-        var input = createElement('input', [], id);
-        input.type = 'text';
-        input.placeholder = placeHolder;
-        return input;
-    }
 }
 var fileInput = document.getElementById('input');
 fileInput.addEventListener('change', function () {
@@ -32,23 +26,19 @@ fileInput.addEventListener('change', function () {
         for (var i = 1; i < data.length; i++) {
             tags.add(data[i][tagPosition]);
         }
-        // const select: HTMLSelectElement = createElement('select', [], 'comp1') as HTMLSelectElement;
-        // headers.forEach(header => {
-        //   const option: HTMLOptionElement = document.createElement('option');
-        //   option.innerHTML = header;
-        //   option.value = header;
-        //   select.appendChild(option);
-        // });
+        compTagList = Array.from(tags);
         var previewSelect = createSelect('linkField1', [], headers);
-        var compSelect = createSelect('comp1', [], Array.from(tags));
+        var compSelect = createSelect('comp1', [], compTagList);
         var inputsDiv = document.getElementById('inputs');
         inputsDiv.appendChild(compSelect);
         inputsDiv.appendChild(previewSelect);
+        inputsDiv.appendChild(document.createElement('br'));
         // processData();
     });
 });
 function createSelect(id, classes, dataList) {
     var select = createElement('select', classes, id);
+    select.addEventListener('change', function (e) { trace(e.target); });
     dataList.forEach(function (header) {
         var option = document.createElement('option');
         option.innerHTML = header;
