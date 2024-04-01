@@ -14,32 +14,40 @@ fileInput.addEventListener('change', function () {
     var file = fileInput.files[0];
     file.text().then(function (e) {
         var lines = e.split('\n');
-        headers = lines[0].split(',');
-        tagPosition = headers.indexOf('composition_tag');
-        for (var i = 1; i < lines.length; i++) {
-            var lineList = lines[i].split(',');
-            if (lineList.length > 1) {
-                data.push(lineList);
+        lines.forEach(function (line) {
+            var currentLineList = [];
+            var findComma = true;
+            var currentWord = '';
+            for (var i = 0; i < line.length; i++) {
+                var currentChar = line.charAt(i);
+                if (currentChar == '"') {
+                    findComma = !findComma;
+                }
+                if (findComma && currentChar == ',') {
+                    currentLineList.push(currentWord);
+                    currentWord = '';
+                }
+                else {
+                    currentWord += currentChar;
+                }
             }
-        }
+            if (currentLineList.length > 1) {
+                data.push(currentLineList);
+            }
+        });
+        headers = data[0];
+        data = data.slice(1);
+        tagPosition = headers.indexOf('composition_tag');
         var tags = new Set();
-        for (var i = 1; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             tags.add(data[i][tagPosition]);
         }
         compTagList = Array.from(tags);
         addField();
-        // const previewSelect = createSelect('linkField1', [], headers);
-        // const compSelect = createSelect('comp1', [], compTagList);
-        // const inputsDiv = document.getElementById('inputs');
-        // inputsDiv.appendChild(compSelect);
-        // inputsDiv.appendChild(previewSelect);
-        // inputsDiv.appendChild(document.createElement('br'));
-        // processData();
     });
 });
 function createSelect(id, classes, dataList) {
     var select = createElement('select', classes, id);
-    // select.addEventListener('change', (e:Event) => {trace(e.target)});
     dataList.forEach(function (header) {
         var option = document.createElement('option');
         option.innerHTML = header;

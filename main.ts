@@ -16,20 +16,37 @@ fileInput.addEventListener('change', () => {
     const file = fileInput.files[0];
     file.text().then((e: string) => {
         const lines = e.split('\n')
-        headers = lines[0].split(',');
+
+        lines.forEach(line => {
+          const currentLineList: string[] = [];
+          let findComma = true;
+          let currentWord = '';
+
+          for(let i = 0; i < line.length; i++) {
+            const currentChar = line.charAt(i);
+
+            if(currentChar == '"') {
+              findComma = !findComma;
+            }
+
+            if(findComma && currentChar == ',') {
+              currentLineList.push(currentWord);
+              currentWord = ''
+            } else {
+              currentWord += currentChar;
+            }
+          }
+          if(currentLineList.length > 1) {
+            data.push(currentLineList);
+          }
+        });
+
+        headers = data[0];
+        data = data.slice(1);
         tagPosition = headers.indexOf('composition_tag');
 
-        
-
-        for(let i = 1; i < lines.length; i++) {
-            const lineList = lines[i].split(',');
-            if(lineList.length > 1) {
-                data.push(lineList);
-            }
-        }
-
         const tags = new Set<string>();
-        for(let i = 1; i < data.length; i++) {
+        for(let i = 0; i < data.length; i++) {
           tags.add(data[i][tagPosition])
         }
         compTagList = Array.from(tags);
