@@ -5,6 +5,7 @@ function addField() {
     fieldCount++;
     const compSelect = createSelect('comp' + fieldCount, [], compTagList);
     const fieldSelect = createSelect('linkField' + fieldCount, [], headers);
+    fieldSelect.addEventListener('change', processData);
     const inputsDiv = document.getElementById('inputs');
     inputsDiv.appendChild(compSelect);
     inputsDiv.appendChild(fieldSelect);
@@ -36,19 +37,19 @@ fileInput.addEventListener('change', () => {
               currentWord += currentChar;
             }
           }
+          currentLineList.push(currentWord);
           if(currentLineList.length > 1) {
             data.push(currentLineList);
           }
         });
+        
 
         headers = data[0];
         data = data.slice(1);
         tagPosition = headers.indexOf('composition_tag');
 
         const tags = new Set<string>();
-        for(let i = 0; i < data.length; i++) {
-          tags.add(data[i][tagPosition])
-        }
+        data.forEach(dataLine => tags.add(dataLine[tagPosition]));
         compTagList = Array.from(tags);
 
         addField();
