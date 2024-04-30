@@ -58,6 +58,8 @@ function createSelect(id, classes, dataList) {
 }
 function processData() {
     var previewType = Array.from(document.getElementsByName('previewType')).map(function (e) { return e.checked; });
+    var width = document.getElementById('widthInput').value;
+    var height = document.getElementById('heightInput').value;
     previewDiv.innerHTML = '';
     var map = new Map();
     for (var i = 1; i <= fieldCount; i++) {
@@ -93,6 +95,8 @@ function processData() {
         }
         previewArea.appendChild(imageContainer);
         previewArea.addEventListener('click', function () { return window.open(line[linkPosition]); });
+        previewArea.style.width = width + 'px';
+        previewArea.style.height = height + 'px';
         previewDiv.appendChild(previewArea);
     });
 }

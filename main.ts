@@ -69,6 +69,8 @@ function createSelect(id: string, classes: string[], dataList: string[]): HTMLSe
 
 function processData() {
   const previewType = Array.from(document.getElementsByName('previewType')).map((e: HTMLInputElement) => e.checked);
+  const width = (document.getElementById('widthInput') as HTMLInputElement).value;
+  const height = (document.getElementById('heightInput') as HTMLInputElement).value;
 
   previewDiv.innerHTML = '';
   const map = new Map<string, string>();
@@ -109,7 +111,10 @@ function processData() {
     }
     
     previewArea.appendChild(imageContainer);
-    previewArea.addEventListener('click', () => window.open(line[linkPosition]))
+    previewArea.addEventListener('click', () => window.open(line[linkPosition]));
+
+    previewArea.style.width = width + 'px';
+    previewArea.style.height = height + 'px';
 
     previewDiv.appendChild(previewArea);
   });
