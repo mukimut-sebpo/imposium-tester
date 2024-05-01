@@ -4,11 +4,13 @@ function addField() {
     fieldCount++;
     var compSelect = createSelect('comp' + fieldCount, [], compTagList);
     var fieldSelect = createSelect('linkField' + fieldCount, [], headers);
+    var versionNameSelect = createSelect('versionName', [], headers);
     fieldSelect.addEventListener('change', processData);
     var inputsDiv = document.getElementById('inputs');
     inputsDiv.appendChild(compSelect);
     inputsDiv.appendChild(fieldSelect);
     inputsDiv.appendChild(document.createElement('br'));
+    document.getElementById('settingDiv').appendChild(versionNameSelect);
 }
 var fileInput = document.getElementById('input');
 fileInput.addEventListener('change', function () {
@@ -67,14 +69,16 @@ function processData() {
         var field = document.getElementById('linkField' + i).value;
         map.set(tag, field);
     }
+    var versionField = document.getElementById('versionName').value;
+    var namePosition = headers.indexOf(versionField);
     data.forEach(function (line, index) {
-        var versionName;
-        for (var i = 0; i < line.length; i++) {
-            if (line[i] && line[i].trim() != '') {
-                versionName = line[i];
-                break;
-            }
-        }
+        // let versionName: string;
+        // for(let i = 0; i < line.length; i++) {
+        //   if(line[i] && line[i].trim() != '') {
+        //     versionName = line[i];
+        //     break;
+        //   }
+        // }
         var previewHeader = map.get(line[tagPosition]);
         if (!previewHeader) {
             return;
@@ -82,7 +86,7 @@ function processData() {
         var linkPosition = headers.indexOf(previewHeader);
         var previewArea = createElement('div', ['previewArea'], 'previewArea' + index);
         var infoArea = createElement('div', ['info'], 'info' + index);
-        infoArea.innerText = versionName + ' | ' + line[tagPosition];
+        infoArea.innerText = line[namePosition] + ' | ' + line[tagPosition];
         previewArea.appendChild(infoArea);
         var imageContainer = createElement('div', ['imageContainer'], 'imageContainer' + index);
         if (previewType[0]) {
