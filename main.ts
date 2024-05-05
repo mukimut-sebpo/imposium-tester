@@ -67,6 +67,13 @@ function createSelect(id: string, classes: string[], dataList: string[]): HTMLSe
   return select
 }
 
+document.addEventListener('keypress', (e: KeyboardEvent) => {
+  if(e.key == 'Enter') {
+    processData();
+    e.preventDefault();
+  }
+});
+
 function processData() {
   const previewType = Array.from(document.getElementsByName('previewType')).map((e: HTMLInputElement) => e.checked);
   const width = (document.getElementById('widthInput') as HTMLInputElement).value;

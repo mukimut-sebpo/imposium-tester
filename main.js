@@ -10,6 +10,12 @@ function addField() {
     inputsDiv.appendChild(fieldSelect);
     inputsDiv.appendChild(document.createElement('br'));
 }
+document.addEventListener('keypress', (e) => {
+    if(e.key == 'Enter') {
+        processData();
+        e.preventDefault();
+      }
+})
 var fileInput = document.getElementById('input');
 fileInput.addEventListener('change', function () {
     var file = fileInput.files[0];
