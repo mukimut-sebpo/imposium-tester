@@ -37,13 +37,17 @@
         <!-- <input type="text" id="comp1" placeholder="composition tag"><input type="text" id="linkField1" placeholder="link field"><br>
         <select id="comp1" -->
     </div>
-    Width: <input type="number" id="widthInput" class="sizeInput" value="450">
-    Height: <input type="number" id="heightInput" class="sizeInput" value="600">
-    <input type="radio" id="image" name="previewType" checked><label for="radio">Image</label>
-    <input type="radio" id="video" name="previewType"><label for="video">Video</label>
-    <button onclick="addField()">add</button>
-    <button onclick="processData()">Load</button>
-    <input id="input" type="file" />
+    <div id="settingDiv">
+        Width: <input type="number" id="widthInput" class="sizeInput" value="450">
+        Height: <input type="number" id="heightInput" class="sizeInput" value="600">
+        <input type="radio" id="image" name="previewType" checked><label for="radio">Image</label>
+        <input type="radio" id="video" name="previewType"><label for="video">Video</label>
+        <button onclick="addField()">add</button>
+        <button onclick="processData()">Load</button>
+        <input id="input" type="file" />
+        Version Name: 
+    </div>
+    
     <div id="previews">
         <!-- <div class="previewArea">
             <div class="info">Food-Dad01 | 1080x1080</div>

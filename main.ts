@@ -5,11 +5,13 @@ function addField() {
     fieldCount++;
     const compSelect = createSelect('comp' + fieldCount, [], compTagList);
     const fieldSelect = createSelect('linkField' + fieldCount, [], headers);
+    const versionNameSelect = createSelect('versionName', [], headers);
     fieldSelect.addEventListener('change', processData);
     const inputsDiv = document.getElementById('inputs');
     inputsDiv.appendChild(compSelect);
     inputsDiv.appendChild(fieldSelect);
     inputsDiv.appendChild(document.createElement('br'));
+    document.getElementById('settingDiv').appendChild(versionNameSelect)
 }
 
 const fileInput: HTMLInputElement = document.getElementById('input') as HTMLInputElement;
@@ -87,15 +89,10 @@ function processData() {
     map.set(tag, field);
   }
 
-  data.forEach((line, index) => {
-    let versionName: string;
-    for(let i = 0; i < line.length; i++) {
-      if(line[i] && line[i].trim() != '') {
-        versionName = line[i];
-        break;
-      }
-    }
+  const versionField = (document.getElementById('versionName') as HTMLSelectElement).value;
+  const namePosition = headers.indexOf(versionField);
 
+  data.forEach((line, index) => {
     const previewHeader = map.get(line[tagPosition]);
     if(!previewHeader) {
       return;
@@ -105,7 +102,7 @@ function processData() {
     const previewArea = createElement('div', ['previewArea'], 'previewArea' + index);
 
     const infoArea = createElement('div', ['info'], 'info' + index);
-    infoArea.innerText = versionName + ' | ' + line[tagPosition];
+    infoArea.innerText = line[namePosition] + ' | ' + line[tagPosition];
     previewArea.appendChild(infoArea);
 
     const imageContainer = createElement('div', ['imageContainer'], 'imageContainer' + index);
