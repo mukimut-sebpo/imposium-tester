@@ -1,5 +1,5 @@
 <html>
-<head><title>Read SVG</title></head>
+<head><title>Preview Imposium</title></head>
 <style>
     body {
         background-color: black; color: white;
@@ -7,7 +7,7 @@
     .previewArea {
         width: 23%; height: 720px;
         position: relative;
-        margin: .5%; cursor: pointer;
+        margin: .2%; cursor: pointer;
         display: inline-block;
     }
 
@@ -28,9 +28,7 @@
         max-width: 99%; max-height: 99%;
     }
 
-    .sizeInput {
-        width: 60px;
-    }
+    .sizeInput, #preveiewTime { width: 60px; }
 </style>
 <body>
     <div id="inputs">
@@ -38,13 +36,14 @@
         <select id="comp1" -->
     </div>
     <div id="settingDiv">
-        Width: <input type="number" id="widthInput" class="sizeInput" value="450">
-        Height: <input type="number" id="heightInput" class="sizeInput" value="600">
+        Width: <input type="number" id="widthInput" class="sizeInput" >
+        Height: <input type="number" id="heightInput" class="sizeInput">
         <input type="radio" id="image" name="previewType" checked><label for="radio">Image</label>
         <input type="radio" id="video" name="previewType"><label for="video">Video</label>
         <button onclick="addField()">add</button>
         <button onclick="processData()">Load</button>
         <input id="input" type="file" />
+        Preview Time: <input id="preveiewTime" type="number" value="1">
         Version Name: 
     </div>
     

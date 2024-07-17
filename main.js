@@ -12,12 +12,6 @@ function addField() {
     inputsDiv.appendChild(document.createElement('br'));
     document.getElementById('settingDiv').appendChild(versionNameSelect);
 }
-document.addEventListener('keypress', (e) => {
-    if(e.key == 'Enter') {
-        processData();
-        e.preventDefault();
-      }
-})
 var fileInput = document.getElementById('input');
 fileInput.addEventListener('change', function () {
     var file = fileInput.files[0];
@@ -64,6 +58,12 @@ function createSelect(id, classes, dataList) {
     });
     return select;
 }
+document.addEventListener('keypress', function (e) {
+    if (e.key == 'Enter') {
+        processData();
+        e.preventDefault();
+    }
+});
 function processData() {
     var previewType = Array.from(document.getElementsByName('previewType')).map(function (e) { return e.checked; });
     var width = document.getElementById('widthInput').value;
@@ -78,13 +78,6 @@ function processData() {
     var versionField = document.getElementById('versionName').value;
     var namePosition = headers.indexOf(versionField);
     data.forEach(function (line, index) {
-        // let versionName: string;
-        // for(let i = 0; i < line.length; i++) {
-        //   if(line[i] && line[i].trim() != '') {
-        //     versionName = line[i];
-        //     break;
-        //   }
-        // }
         var previewHeader = map.get(line[tagPosition]);
         if (!previewHeader) {
             return;
@@ -101,7 +94,8 @@ function processData() {
             imageContainer.appendChild(imageElement);
         }
         else {
-            imageContainer.innerHTML = '<video controls class="preview"><source src=' + line[linkPosition] + '></video>';
+            var previewTime = document.getElementById('preveiewTime').value;
+            imageContainer.innerHTML = '<video controls class="preview"><source src="' + line[linkPosition] + '#t=' + previewTime + '"></video>';
         }
         previewArea.appendChild(imageContainer);
         previewArea.addEventListener('click', function () { return window.open(line[linkPosition]); });

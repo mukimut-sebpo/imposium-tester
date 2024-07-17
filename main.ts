@@ -111,7 +111,8 @@ function processData() {
       imageElement.src = line[linkPosition];
       imageContainer.appendChild(imageElement);
     } else {
-      imageContainer.innerHTML = '<video controls class="preview"><source src=' + line[linkPosition] + '></video>'
+      const previewTime = (document.getElementById('preveiewTime') as HTMLInputElement).value;
+      imageContainer.innerHTML = '<video controls class="preview"><source src="' + line[linkPosition] + '#t=' + previewTime + '"></video>';
     }
     
     previewArea.appendChild(imageContainer);
